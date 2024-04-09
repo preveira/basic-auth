@@ -6,6 +6,7 @@ const { User } = require('../models');
 
 
 let signUp = async(req, res, next) => {
+  console.log(req.body);
   try {
     req.body.password = await bcrypt.hash(req.body.password, 10);
     const record = await User.create(req.body);
@@ -14,7 +15,9 @@ let signUp = async(req, res, next) => {
     } else {
       next('Unable to signup');
     }
-  } catch (e) { res.status(403).send('Error Creating User'); }
+  } catch (e) { 
+    console.log('ERROR CAUGHT!!!', e);
+    res.status(403).send('Error Creating User'); }
 
 };
 
@@ -22,7 +25,7 @@ let signUp = async(req, res, next) => {
 
 let signIn = async(req, res, next) => {
 
-console.log(req.headers); 
+  console.log(req.headers); 
   let basicHeaderParts = req.headers.authorization.split(' ');  // ['Basic', 'am9objpmb28=']
   let encodedString = basicHeaderParts.pop();  // am9objpmb28=
   let decodedString = base64.decode(encodedString); // "username:password"

@@ -11,7 +11,7 @@ describe('validate signUp', () => {
     const req = {
       body: {
         username: 'Kawika',
-        passwordHash: 'oompahloompah',
+        password: 'oompahloompah',
       },
     };
 
